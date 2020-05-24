@@ -1,5 +1,8 @@
 package gobeyond.hazelcast.client;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +28,18 @@ public class HazelcastClient implements CommandLineRunner{
 		
 		log.info("maps ::"+maps);
 		
+		
+		IMap<Object, Object> orderMap = hz.getMap("order-map");
+		
+		Map<String,String> orderDetails = new HashMap<>();
+		
+		orderDetails.put("2378472", "started");
+		
+		orderMap.put(hz.getLocalEndpoint().getUuid(), orderDetails);
+		
+		orderDetails.put("123546", "Inprogress");
+		
+		orderMap.put(hz.getLocalEndpoint().getUuid(), orderDetails);
 	}
 
 }
